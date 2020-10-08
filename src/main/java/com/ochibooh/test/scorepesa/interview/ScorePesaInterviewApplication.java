@@ -19,37 +19,15 @@ package com.ochibooh.test.scorepesa.interview;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @SpringBootApplication
 public class ScorePesaInterviewApplication {
-    public static List<String> changeDateFormat(List<String> dates) {
-        List<String> res = new ArrayList<>();
-        if (dates.size() > 0) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-            List<String> patterns = Arrays.asList("yyyy/MM/dd", "dd/MM/yyyy", "MM-dd-yyyy");
-            for (String date : dates) {
-                for (String pattern : patterns) {
-                    try {
-                        LocalDate localDate = LocalDate.parse(date, DateTimeFormatter.ofPattern(pattern));
-                        res.add(formatter.format(localDate));
-                        break;
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-                }
-            }
-        }
-        return res;
-    }
 
     public static void main(String[] args) {
         SpringApplication.run(ScorePesaInterviewApplication.class, args);
-        List<String> dates = changeDateFormat(Arrays.asList("2010/03/30", "15/12/2016", "11-15-2012", "20130720"));
+        List<String> dates = DateFormatAny.changeDateFormat(Arrays.asList("2010/03/30", "15/12/2016", "11-15-2012", "20130720"));
         for(String date : dates) {
             System.out.println(date);
         }
